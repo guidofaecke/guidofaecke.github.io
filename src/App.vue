@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="PGP"
+          class="shrink mr-2"
+          contain
+          :src="require('./assets/php.jpg')"
+          transition="scale-transition"
+          width="60"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+        <span class="mr-2">Guido Faecke</span>
+    </v-app-bar>
+
+    <v-main>
+      <component @component="changeComponent" :name="selectedComponent" v-bind:is="selectedComponent"/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyGithub from "./components/MyGithub";
+import AboutMe from "./components/AboutMe";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    MyGithub,
+    AboutMe
+  },
+
+  data: () => ({
+    selectedComponent: MyGithub
+  }),
+  methods: {
+    changeComponent(component){
+      this.selectedComponent = component;
+    }
+  }
+};
+</script>
