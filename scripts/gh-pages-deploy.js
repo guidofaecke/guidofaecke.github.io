@@ -11,7 +11,7 @@ const fs = require("fs");
         await execa("npm", ["run", "build"]);
         // Understand if it's dist or build folder
         const folderName = fs.existsSync("dist") ? "dist" : "build";
-        console.log("Adding " + folderName + "to repository...")
+        console.log("Adding " + folderName + " to repository...")
         await execa("git", ["add", "-f", folderName]);
         console.log("Committing gh-pages...")
         await execa("git", ["commit", "-m", "gh-pages"]);
