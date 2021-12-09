@@ -1,50 +1,60 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="PGP"
-          class="shrink mr-2"
-          contain
-          :src="require('./assets/php.jpg')"
-          transition="scale-transition"
-          width="60"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-        <span class="mr-2">Guido Faecke</span>
-    </v-app-bar>
-
+    <v-navigation-drawer app>
+      <main-nav :routes="routes"/>
+    </v-navigation-drawer>
+<!--    <v-app-bar app>-->
+<!--&lt;!&ndash;      <main-nav :routes="routes"/>&ndash;&gt;-->
+<!--    </v-app-bar>-->
     <v-main>
-      <component @component="changeComponent" :name="selectedComponent" v-bind:is="selectedComponent"/>
+      <v-container fluid>
+        <router-view/>
+      </v-container>
     </v-main>
+  <v-footer app>
+    <Footer/>
+  </v-footer>
   </v-app>
 </template>
 
 <script>
-import MyGithub from "./components/MyGithub";
-import AboutMe from "./components/AboutMe";
+import routes from "./router/routes";
+import MainNav from "./components/main-nav";
+import Footer from "./views/Footer";
 
 export default {
-  name: 'App',
-
   components: {
-    MyGithub,
-    AboutMe
+    MainNav,
+    Footer
   },
-
   data: () => ({
-    selectedComponent: MyGithub
-  }),
-  methods: {
-    changeComponent(component){
-      this.selectedComponent = component;
+    routes,
+    nav: false
+  })
+}
+</script>
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
     }
   }
-};
-</script>
+  .content {
+    margin: 12px;
+  }
+}
+</style>
