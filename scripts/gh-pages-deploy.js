@@ -5,6 +5,8 @@ const fs = require("fs");
 
 (async () => {
     try {
+        console.log("Commit changes...")
+        await execa("git", ["commit", "-a", "-m", "changes"]);
         console.log("Building started...");
         await execa("npm", ["run", "build"]);
         // Understand if it's dist or build folder
